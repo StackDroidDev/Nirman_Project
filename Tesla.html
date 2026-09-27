@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tesla | Electric Vehicles, Solar & Clean Energy</title>
+  
+  <!-- Modern Clean Typography: Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================
+       1. CSS RESET & GLOBAL VARIABLES
+       ========================================================== */
+    :root {
+      --bg-dark: #171A20;           /* Tesla pure signature dark background */
+      --bg-surface: #22262E;        /* Subtle contrast surface for cards */
+      --bg-surface-hover: #292E38;  /* Elevated card state */
+      --text-main: #FFFFFF;         /* Crisp white text */
+      --text-muted: #8E9297;        /* Soft secondary text for descriptions */
+      --accent-red: #E31937;        /* Tesla signature red accent */
+      --accent-red-hover: #C5132D;  /* Darker red for button hover */
+      --accent-red-glow: rgba(227, 25, 55, 0.28); /* Red glow for card shadows */
+      --border-subtle: rgba(255, 255, 255, 0.08); /* Minimalist borders */
+      --transition-fast: 0.35s cubic-bezier(0.16, 1, 0.3, 1); /* Quick, sleek curve */
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html { /* Smooth scrolling for anchor links */
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+    /* Container for layout breathing room */
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    /* Section Headings */
+    .section-header {
+      text-align: center;
+}
+    .section-eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-red);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-top: 0.75rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* ==========================================================
+       2. NAVIGATION BAR
+       ========================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      z-index: 1000;
+      transition: background-color var(--transition-fast), box-shadow var(--transition-fast), backdrop-filter var(--transition-fast);
+      background-color: transparent;
+    }
+    .navbar.scrolled {
+      background-color: rgba(23, 26, 32, 0.94);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    /* Tesla Wordmark */
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 8px;
+      color: var(--text-main);
+      text-transform: uppercase;
+      transition: opacity var(--transition-fast);
+    }
+    .brand-logo:hover {
+      opacity: 0.85;
+    }
+    .brand-logo svg {
+      height: 18px;
+      fill: var(--text-main);
+    }
+    /* Navigation Links */
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 2rem;
+    }
+    .nav-link {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-main);
+      letter-spacing: 0.5px;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      transition: color var(--transition-fast), background-color var(--transition-fast);
+      position: relative;
+    }
+    .nav-link:hover {
+      color: var(--accent-red);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    /* Compact Order button in Nav */
+    .btn-nav {
+      background-color: var(--accent-red);
+      color: var(--text-main);
+      padding: 0.5rem 1.25rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+    }
+    .btn-nav:hover {
+      background-color: var(--accent-red-hover);
+      transform: translateY(-1px);
+    }
+    /* Mobile Menu Hamburger */
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      padding: 8px;
+    }
+    .mobile-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: var(--text-main);
+      transition: transform var(--transition-fast), opacity var(--transition-fast);
+    }
+      /* ==========================================================
+       3. HERO SECTION
+       ========================================================== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+    /* Hero Background with Dark Overlay */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(23, 26, 32, 0.4) 0%, rgba(23, 26, 32, 0.95) 100%),
+                  linear-gradient(to bottom, rgba(23, 26, 32, 0.3) 0%, rgba(23, 26, 32, 0.9) 100%),
+                  url('https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+      z-index: 1;
+      transform: scale(1.04);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      padding: 0 1.5rem;
+    }
+    /* Staggered Word Animation for Headline */
+    .hero-title {
+      font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+     .hero-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(22px);
+      animation: wordFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--order) * 0.12s);
+    }
+    @keyframes wordFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: #D0D3D8;
+      max-width: 640px;
+      margin: 0 auto 2.25rem auto;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeInSimple 0.6s 0.75s forwards;
+    }
+    @keyframes fadeInSimple {
+      to {
+        opacity: 1;
+      }
+    }
+    /* Button Group */
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.25rem;
+      opacity: 0;
+      animation: fadeInSimple 0.6s 0.9s forwards;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: transform var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+      user-select: none;
+    }
+    .btn:active {
+      transform: scale(0.97) !important;
+    }
+    .btn-primary {
+      background-color: var(--accent-red);
+      color: var(--text-main);
+      box-shadow: 0 4px 14px rgba(227, 25, 55, 0.35);
+    }
+    .btn-primary:hover {
+      background-color: var(--accent-red-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(227, 25, 55, 0.5);
+    }
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+    /* Scroll Indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      animation: pulseScroll 2s infinite ease-in-out;
+    }
+.hero-scroll svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--text-muted);
+    }
+    @keyframes pulseScroll {
+      0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
+      50% { transform: translate(-50%, 6px); opacity: 0.9; }
+    }
+    /* ==========================================================
+       4. MODEL SHOWCASE SECTION
+       ========================================================== */
+    .models-section {
+      padding: 6rem 0;
+      position: relative;
+    }
+    .models-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 2rem;
+    }
+    .model-card.highlighted {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 3px var(--accent-red-glow), 0 16px 36px rgba(0,0,0,0.55);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+    /* Model Card with Sleek Micro-interactions */
+    .model-card {
+      background-color: var(--bg-surface);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+      position: relative;
+    }
+    .model-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      background-color: var(--bg-surface-hover);
+      border-color: rgba(227, 25, 55, 0.4);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 24px var(--accent-red-glow);
+    }
+    /* Car Image Thumbnail Container */
+    .model-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 230px;
+      background-color: #121418;
+      overflow: hidden;
+    }
+    .model-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.06);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .model-card:hover .model-image {
+      transform: scale(1);
+    }
+    /* Image placeholder badge */
+    .placeholder-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(23, 26, 32, 0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--border-subtle);
+      color: #A0A5AD;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      pointer-events: none;
+    }
+    /* Card Details Body */
+    .model-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .model-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.6rem;
+    }
+    .model-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .model-price {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #E0E2E6;
+    }
+    .model-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+    }
+    /* Specs Pills Row */
+    .model-specs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      padding: 1rem 0;
+      margin-bottom: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .spec-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+    .spec-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+    /* Card CTA */
+    .model-btn {
+      width: 100%;
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+      margin-top: auto;
+    }
+    .model-card:hover .model-btn {
+      background-color: var(--accent-red);
+      border-color: var(--accent-red);
+      color: var(--text-main);
+      box-shadow: 0 4px 12px rgba(227, 25, 55, 0.3);
+    }
+    .model-btn:active {
+      transform: scale(0.98);
+    }
+    /* ==========================================================
+       5. FEATURES SECTION
+       ========================================================== */
+    .features-section {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, var(--bg-dark) 0%, #1A1E26 100%);
+      border-top: 1px solid var(--border-subtle);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .feature-card {
+      background-color: rgba(34, 38, 46, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 2.25rem 1.75rem;
+      transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      background-color: rgba(41, 46, 56, 0.9);
+      border-color: rgba(227, 25, 55, 0.35);
+    }
+    .feature-icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      background: rgba(227, 25, 55, 0.12);
+      border: 1px solid rgba(227, 25, 55, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+    }
+    .feature-card:hover .feature-icon-box {
+      background-color: var(--accent-red);
+      transform: scale(1.05);
+    }
+    .feature-icon-box svg {
+      width: 26px;
+      height: 26px;
+      fill: var(--accent-red);
+      transition: fill var(--transition-fast);
+    }
+    .feature-card:hover .feature-icon-box svg {
+      fill: #FFFFFF;
+    }
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.2px;
+    }
+    .feature-text {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+    /* ==========================================================
+       6. SCROLL ANIMATION UTILITY
+       ========================================================== */
+    .fade-up-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .fade-up-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Staggered delay helpers for elements */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    /* ==========================================================
+       7. FOOTER SECTION
+       ========================================================== */
+    .site-footer {
+      background-color: #111317;
+      border-top: 1px solid var(--border-subtle);
+      padding: 4.5rem 0 2.5rem 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .footer-logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: var(--text-main);
+}
+
+
+Cancel
+
+    .footer-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      transition: color var(--transition-fast);
+    }
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+    .footer-socials {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-subtle);
+      transition: all var(--transition-fast);
+    }
+    .social-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--text-muted);
+      transition: fill var(--transition-fast);
+    }
+    .social-btn:hover {
+      background-color: var(--accent-red);
+      border-color: var(--accent-red);
+      transform: translateY(-2px);
+    }
+    .social-btn:hover svg {
+      fill: var(--text-main);
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+    /* ==========================================================
+       8. RESPONSIVE DESIGN (MOBILE & TABLET)
+       ========================================================== */
+       
+    @media (max-width: 992px) {
+      .models-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+      .nav-menu {
+        gap: 1.25rem;
+      }
+    }
+     @media (max-width: 768px) {
+      .navbar {
+        height: 64px;
+      }
+      
+      .mobile-toggle {
+        display: flex;
+      }
+      .nav-menu {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(23, 26, 32, 0.98);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+        border-bottom: 1px solid var(--border-subtle);
+        transform: translateY(-150%);
+        transition: transform var(--transition-fast);
+      }
+      .nav-menu.active {
+        transform: translateY(0);
+      }
+      .nav-actions {
+        display: none;
+      }
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn {
+        width: 100%;
+      }
+      .models-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ==========================================================
+       NAVBAR
+       ========================================================== -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container">
+      <!-- Tesla Wordmark Logo -->
+      <a href="#hero" class="brand-logo" aria-label="Tesla Home">
+        <svg viewBox="0 0 342 35" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 .1a9.7 9.7 0 0 0 7 7h11v27.8h4.6V7.1h11a9.6 9.6 0 0 0 7-7H0zm253.2 0a9.7 9.7 0 0 0 7 7h11v27.8h4.6V7.1h11a9.6 9.6 0 0 0 7-7h-40.6zM65.7 35h33.8V30.4H70.3V19.8h25.8v-4.6H70.3V4.7h29.2V.1H65.7V35zm121.7-27.9c-7.1 0-10.7 2.4-10.7 7.2 0 8.7 23.3 5.4 23.3 19.3 0 6.6-5.8 11.4-14.8 11.4a24.6 24.6 0 0 1-15.6-5.3l2.8-3.8c3.5 2.8 7.9 4.5 12.8 4.5 6.3 0 10.2-3 10.2-6.8 0-9.2-23.3-5.7-23.3-19.4 0-6.3 5.3-11.8 14.7-11.8 5.3 0 10.5 1.7 14.4 4.8l-2.7 3.8a21.4 21.4 0 0 0-11.8-3.9zM128 35h4.6V.1H128V35zm178.6 0h4.6V4.7h24.6V.1h-29.2V35z"/>
+        </svg>
+      </a>
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#models" class="nav-link">Models</a></li>
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#models" class="nav-link">Order</a></li>
+        </ul>
+      </nav>
+      <!-- Right Action Button & Mobile Toggle -->
+      <div class="nav-actions">
+        <a href="#models" class="btn-nav">Order Now</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+    <!-- ==========================================================
+         HERO SECTION
+         ========================================================== -->
+          <section class="hero" id="hero">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-content">
+        <!-- Staggered animated wordmark headline -->
+        <h1 class="hero-title" aria-label="Accelerating The Future of Mobility">
+          <span class="hero-word" style="--order: 1;">Accelerating</span>
+          <span class="hero-word" style="--order: 2;">The</span>
+          <span class="hero-word" style="--order: 3;">Future</span>
+          <span class="hero-word" style="--order: 4;">Of</span>
+          <span class="hero-word" style="--order: 5;">Mobility</span>
+        </h1>
+        <p class="hero-subtitle">
+          Experience pure electric exhilaration, unmatched autonomy, and zero-compromise engineering designed for tomorrow.
+        </p>
+        <div class="hero-buttons">
+          <a href="#models" class="btn btn-primary">Order Now</a>
+          <a href="#features" class="btn btn-secondary">Explore Innovations</a>
+        </div>
+      </div>
+      <!-- Scroll Indicator -->
+      <a href="#models" class="hero-scroll" aria-label="Scroll down to vehicle models">
+        <span>Scroll</span>
+        <svg viewBox="0 0 24 24">
+          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+        </svg>
+      </a>
+    </section>
+    <!-- ==========================================================
+         MODEL SHOWCASE SECTION
+         ========================================================== -->
+    <section class="models-section" id="models">
+      <div class="container">
+        <div class="section-header fade-up-item">
+          <span class="section-eyebrow">The Lineup</span>
+          <h2 class="section-title">Designed for Pure Performance</h2>
+          <p class="section-subtitle">
+            Every Tesla is engineered with peak safety ratings, lightning-fast acceleration, and relentless software innovation.
+          </p>
+        </div>
+        <div class="models-grid">
+          
+          <!-- 1. MODEL S -->
+          <article class="model-card fade-up-item delay-1" id="model-s"> 
+            <div class="model-image-wrapper">
+              <span class="placeholder-badge">Placeholder Image</span>
+              <img 
+                src="https://hips.hearstapps.com/mtg-prod/6793fa7df3811f0008acd379/1-2025-tesla-model-s-front-view.jpg?*&w=768&width=768&q=75&format=webp" 
+                alt="Tesla Model S electric luxury sports sedan" 
+                class="model-image"
+                loading="lazy"
+              >
+            </div>
+            <div class="model-body">
+              <div class="model-header">
+                <h3 class="model-name">Model S</h3>
+                <span class="model-price">From $74,990</span>
+              </div>
+              <p class="model-desc">
+                The flagship luxury performance sedan that pioneered the modern electric revolution. Features an endurance range of up to 402 miles, tri-motor Plaid architecture, and world-record luxury acceleration.
+              </p>
+              
+              <div class="model-specs">
+                <div class="spec-item">
+                  <span class="spec-value">1.99s</span>
+                  <span class="spec-label">0-60 mph</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">402 mi</span>
+                  <span class="spec-label">Range (EPA)</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">200 mph</span>
+                  <span class="spec-label">Top Speed</span>
+                </div>
+              </div>
+              <a href="#models" class="btn model-btn">Customize &amp; Order</a>
+            </div>
+          </article>
+          <!-- 2. MODEL 3 -->
+          <article class="model-card fade-up-item delay-2" id="model-3">
+            <div class="model-image-wrapper">
+              <span class="placeholder-badge">Placeholder Image</span>
+              <img 
+                src="https://hips.hearstapps.com/hmg-prod/images/2024-tesla-model-3-front-three-quarters-659ebaaf005fb.jpg?crop=0.697xw:0.464xh;0.160xw,0.243xh&resize=1400:*" 
+                alt="Tesla Model 3 electric sports sedan" 
+                class="model-image"
+                loading="lazy"
+              >
+            </div>
+            <div class="model-body">
+              <div class="model-header">
+                <h3 class="model-name">Model 3</h3>
+                <span class="model-price">From $38,990</span>
+              </div>
+              <p class="model-desc">
+                The accessible, ultra-agile sports sedan engineered for high-volume efficiency and precision handling. Delivers an aerodynamic redesign with acoustic glass and seating for five adults.
+              </p>
+              <div class="model-specs">
+                <div class="spec-item">
+                  <span class="spec-value">2.9s</span>
+                  <span class="spec-label">0-60 mph</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">341 mi</span>
+                  <span class="spec-label">Range (EPA)</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">162 mph</span>
+                  <span class="spec-label">Top Speed</span>
+                </div>
+              </div>
+              <a href="#models" class="btn model-btn">Customize &amp; Order</a>
+            </div>
+          </article>
+          <!-- 3. MODEL X -->
+          <article class="model-card fade-up-item delay-3" id="model-x">
+            <div class="model-image-wrapper">
+              <span class="placeholder-badge">Placeholder Image</span>
+              <img 
+                src="https://hips.hearstapps.com/hmg-prod/images/model-x-83-6852e4c78c8c1.jpg?crop=1.00xw:0.892xh;0,0.0712xh&resize=1400:*" 
+                alt="Tesla Model X electric luxury SUV" 
+                class="model-image"
+                loading="lazy"
+              >
+            </div>
+            <div class="model-body">
+              <div class="model-header">
+                <h3 class="model-name">Model X</h3>
+                <span class="model-price">From $79,990</span>
+              </div>
+              <p class="model-desc">
+                The pinnacle luxury SUV distinguished by signature Falcon Wing rear doors that grant effortless ingress. Boasts an expansive panoramic glass windshield and adaptable seating for up to seven passengers.
+              </p>
+              <div class="model-specs">
+                <div class="spec-item">
+                  <span class="spec-value">2.5s</span>
+                  <span class="spec-label">0-60 mph</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">335 mi</span>
+                  <span class="spec-label">Range (EPA)</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">7 Seats</span>
+                  <span class="spec-label">Capacity</span>
+                </div>
+              </div>
+              <a href="#models" class="btn model-btn">Customize &amp; Order</a>
+            </div>
+          </article>
+          <!-- 4. MODEL Y -->
+          <article class="model-card fade-up-item delay-4" id="model-y">
+            <div class="model-image-wrapper">
+              <span class="placeholder-badge">Placeholder Image</span>
+              <img 
+                src="https://hips.hearstapps.com/hmg-prod/images/2026-tesla-model-y-long-range-awd-121-688bc237a2711.jpg?crop=0.615xw:0.519xh;0.0865xw,0.365xh&resize=1200:*" 
+                alt="Tesla Model Y versatile electric crossover" 
+                class="model-image"
+                loading="lazy"
+              >
+            </div>
+            <div class="model-body">
+              <div class="model-header">
+                <h3 class="model-name">Model Y</h3>
+                <span class="model-price">From $44,990</span>
+              </div>
+              <p class="model-desc">
+                The world's bestselling compact electric crossover SUV, prioritizing versatility, spacious cargo utility, and all-weather dual motor all-wheel drive. Seats up to 7 with elevated seating position.
+              </p>
+              <div class="model-specs">
+                <div class="spec-item">
+                  <span class="spec-value">3.5s</span>
+                  <span class="spec-label">0-60 mph</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">320 mi</span>
+                  <span class="spec-label">Range (EPA)</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">76 cu ft</span>
+                  <span class="spec-label">Cargo Space</span>
+                </div>
+              </div>
+              <a href="#models" class="btn model-btn">Customize &amp; Order</a>
+            </div>
+          </article>
+          <!-- 5. CYBERTRUCK -->
+          <article class="model-card fade-up-item delay-5" id="cybertruck">
+            <div class="model-image-wrapper">
+              <span class="placeholder-badge">Placeholder Image</span>
+              <img 
+                src="https://hips.hearstapps.com/hmg-prod/images/2024-tesla-cybertruck-pr-101-688d35ae96e4c.jpg?crop=0.622xw:0.624xh;0.239xw,0.325xh&resize=1200:*" 
+                alt="Tesla Cybertruck electric stainless steel pickup" 
+                class="model-image"
+                loading="lazy"
+              >
+            </div>
+            <div class="model-body">
+              <div class="model-header">
+                <h3 class="model-name">Cybertruck</h3>
+                <span class="model-price">From $79,990</span>
+              </div>
+              <p class="model-desc">
+                Futuristic electric pickup constructed with an ultra-hard 30X cold-rolled stainless-steel exoskeleton and shatter-resistant Armor Glass. Conquers any terrain with 11,000 lbs towing capacity.
+              </p>
+              <div class="model-specs">
+                <div class="spec-item">
+                  <span class="spec-value">2.6s</span>
+                  <span class="spec-label">0-60 mph</span>
+                   </div>
+                <div class="spec-item">
+                  <span class="spec-value">340 mi</span>
+                  <span class="spec-label">Range (Est.)</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-value">11,000 lbs</span>
+                  <span class="spec-label">Towing Power</span>
+                </div>
+              </div>
+              <a href="#models" class="btn model-btn">Customize &amp; Order</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- ==========================================================
+         FEATURES SECTION
+         ========================================================== -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header fade-up-item">
+          <span class="section-eyebrow">Technology</span>
+          <h2 class="section-title">Built for the Autonomous Era</h2>
+          <p class="section-subtitle">
+            Pioneering the intersection of artificial intelligence, high-efficiency powertrain architecture, and frictionless energy.
+          </p>
+        </div>
+        <div class="features-grid">
+          <!-- Feature 1: Autopilot / FSD -->
+          <div class="feature-card fade-up-item delay-1">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-2.07.79-3.95 2.08-5.38L17.38 17.92C15.95 19.21 14.07 20 12 20zm6.92-2.62L7.62 6.08C9.05 4.79 10.93 4 12 4c4.41 0 8 3.59 8 8 0 2.07-.79 3.95-2.08 5.38z"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Full Self-Driving</h3>
+            <p class="feature-text">
+              Equipped with hardware-accelerated neural networks and 360-degree vision cameras that process visual inputs faster than human reflexes under driver supervision.
+            </p>
+          </div>
+          <!-- Feature 2: Long Range Battery -->
+          <div class="feature-card fade-up-item delay-2">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Long Range Battery</h3>
+            <p class="feature-text">
+              Proprietary cylindrical battery cell chemistry and intelligent thermal management maximize energy density, providing class-leading single-charge highway endurance.
+            </p>
+          </div>
+          <!-- Feature 3: Supercharging -->
+          <div class="feature-card fade-up-item delay-3">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Supercharging Network</h3>
+            <p class="feature-text">
+              Plug in, charge, and go. Access over 50,000 globally deployed Superchargers capable of replenishing up to 200 miles of driving range in approximately 15 minutes.
+            </p>
+          </div>
+          <!-- Feature 4: Premium Minimalist Interior -->
+          <div class="feature-card fade-up-item delay-4">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Premium Interior</h3>
+            <p class="feature-text">
+              Clean lines and uncluttered aesthetics. Features an immersive 17-inch touchscreen command center, active noise canceling, studio audio, and a full panoramic glass roof.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+ <!-- ==========================================================
+         ABOUT BRAND STRIP
+         ========================================================== -->
+    <section class="container" id="about" style="padding: 5rem 1.5rem; text-align: center;">
+      <div class="fade-up-item" style="max-width: 760px; margin: 0 auto;">
+        <span class="section-eyebrow">Our Mission</span>
+        <h2 class="section-title" style="margin-bottom: 1.25rem;">Accelerating the World's Transition to Sustainable Energy</h2>
+        <p class="section-subtitle" style="margin-bottom: 2rem;">
+          Tesla builds not only all-electric vehicles but also infinitely scalable clean energy generation and storage products. We believe the faster the world stops relying on fossil fuels and moves towards a zero-emission future, the better.
+        </p>
+        <a href="#models" class="btn btn-primary">Join the Electric Movement</a>
+      </div>
+    </section>
+  </main>
+  <!-- ==========================================================
+       FOOTER
+       ========================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-logo">TESLA</div>
+<ul class="footer-links" style="list-style: none; display: flex; flex-wrap: wrap; gap: 2rem; padding: 0; margin: 0;">
+  <li><a href="#model-s">Model S</a></li>
+  <li><a href="#model-3">Model 3</a></li>
+  <li><a href="#model-x">Model X</a></li>
+  <li><a href="#model-y">Model Y</a></li>
+  <li><a href="#cybertruck">Cybertruck</a></li>
+  <li><a href="#features">Energy</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="#about">Careers</a></li>
+  <li><a href="#about">Support</a></li>
+</ul>
+        <!-- Social Media Icon Placeholders -->
+        <div class="footer-socials">
+          <a href="#" class="social-btn" aria-label="X formerly Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Tesla &copy; 2026. All rights reserved. Built as a brand-matching frontend demonstration.</p>
+        <p>Privacy &amp; Legal &bull; Vehicle Recalls &bull; Contact &bull; News &bull; Locations</p>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. DYNAMIC NAVBAR SCROLL EFFECT
+      const navbar = document.getElementById('navbar');
+      
+      const handleNavbarScroll = () => {
+        // When user scrolls down more than 40px, add solid background and shadow
+        if (window.scrollY > 40) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      };
+      // Listen for window scroll events
+      window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+      // Run once on initial page load in case user refreshed partway down
+      handleNavbarScroll();
+      // 2. MOBILE NAVIGATION DRAWER TOGGLE
+      const mobileToggle = document.getElementById('mobileToggle');
+      const navMenu = document.getElementById('navMenu');
+      if (mobileToggle && navMenu) {
+        mobileToggle.addEventListener('click', () => {
+          navMenu.classList.toggle('active');
+        });
+        
+        // 5. HIGHLIGHT A CARD WHEN A FOOTER LINK JUMPS TO IT
+function highlightTarget() {
+  // Look at whatever is after the # in the URL, e.g. "model-3"
+  const targetId = window.location.hash.replace('#', '');
+  if (!targetId) return;
+
+  const targetEl = document.getElementById(targetId);
+  // Only highlight it if it's actually a car card
+  if (targetEl && targetEl.classList.contains('model-card')) {
+    // Remove highlight from any other card first
+    document.querySelectorAll('.model-card.highlighted').forEach(card => {
+      card.classList.remove('highlighted');
+    });
+    // Add the glow to this one
+    targetEl.classList.add('highlighted');
+    // Remove the glow again after 1.8 seconds
+    setTimeout(() => {
+      targetEl.classList.remove('highlighted');
+    }, 1800);
+  }
+}
+
+// Run it every time the URL's # part changes (i.e. every footer link click)
+window.addEventListener('hashchange', highlightTarget);
+
+        // Close mobile menu whenever any nav link is tapped
+        const navLinks = navMenu.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+          });
+        });
+      }
+      // 3. INTERSECTION OBSERVER FOR SCROLL-TRIGGERED ANIMATIONS
+      // Observes when section headers, vehicle cards, and feature items enter the screen
+      const animatedElements = document.querySelectorAll('.fade-up-item');
+      const scrollObserverOptions = {
+        root: null, // observe relative to user's viewport
+        rootMargin: '0px 0px -50px 0px', // trigger slightly before element reaches bottom
+        threshold: 0.15 // trigger when 15% of the element is visible
+      };
+       const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add visible class to trigger the smooth CSS slide-up transition
+            entry.target.classList.add('is-visible');
+            // Unobserve once animated so it stays visible and saves computing power
+            observer.unobserve(entry.target);
+          }
+        });
+      }, scrollObserverOptions);
+      animatedElements.forEach(element => {
+        scrollObserver.observe(element);
+      });
+      // 4. PARALLAX EFFECT ON HERO BACKGROUND
+      const heroBg = document.getElementById('heroBg');
+      if (heroBg) {
+        window.addEventListener('scroll', () => {
+          const scrollPos = window.scrollY;
+          // Only calculate if hero is visible on screen
+          if (scrollPos < window.innerHeight) {
+            // Subtle slow translation downwards for cinematic depth
+            heroBg.style.transform = `scale(1.04) translateY(${scrollPos * 0.25}px)`;
+          }
+        }, { passive: true });
+      }
+    });
+  </script>
+</body>
+</html>
